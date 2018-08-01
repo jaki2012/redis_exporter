@@ -12,7 +12,7 @@ go get github.com/tcnksm/ghr
 
 gox --osarch="linux/386"   -ldflags "$GO_LDFLAGS" -output "dist/redis_exporter"
 
-if [ ! -f /dist/redis_exporter ]; then
+if [ ! -f dist/redis_exporter ]; then
     echo "binary not found!"
     exit 1
 fi
