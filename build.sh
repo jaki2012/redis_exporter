@@ -5,7 +5,7 @@ set -x
 echo "oliver"
 
 export CGO_ENABLED=0
-export GO_LDFLAGS="-extldflags \"-static\" -X main.VERSION=$CIRCLE_TAG -X main.COMMIT_SHA1=$CIRCLE_SHA1 -X main.BUILD_DATE=$(date +%F-%T"
+export GO_LDFLAGS="-extldflags \"-static\" -X main.VERSION=$CIRCLE_TAG -X main.COMMIT_SHA1=$CIRCLE_SHA1 -X main.BUILD_DATE=$(date +%F-%T)"
 
 go get github.com/mitchellh/gox
 go get github.com/tcnksm/ghr
