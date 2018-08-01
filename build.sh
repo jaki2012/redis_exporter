@@ -2,6 +2,9 @@
 
 export CGO_ENABLED=0
 
+go get github.com/mitchellh/gox
+go get github.com/tcnksm/ghr
+
 gox --osarch="linux/386"   -ldflags "$GO_LDFLAGS" -output "dist/redis_exporter"
 
 echo "Build Docker images"
