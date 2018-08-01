@@ -49,13 +49,16 @@ workflows:
   version: 2
   test-and-release-on-tags:
     jobs:
-      - run-tests
+      - run-tests:
+          filters:
+            tags:
+              only: /.*/
       - build-and-release:
           requires:
             - run-tests
           filters:
+            tags:
+              only: /^v.*/
             branches:
               ignore: /.*/
-            tags:
-              only:
-                - /v.*/
+
