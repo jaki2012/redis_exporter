@@ -2,7 +2,7 @@
 version: 2
 jobs:
 
-  run-tests:
+  tests:
     docker:
       - image: circleci/golang:1.10-stretch
       - image: redis:4.0.10
@@ -29,36 +29,30 @@ jobs:
       - run: bash <(curl -s https://codecov.io/bash)
 
 
-  build-and-release:
+  build:
     docker:
       - image: circleci/golang:1.10-stretch
 
     working_directory: /go/src/github.com/oliver006/redis_exporter
-    environment:
-      GO_LDFLAGS: '-extldflags "-static" -X main.VERSION=$CIRCLE_TAG -X main.COMMIT_SHA1=$CIRCLE_SHA1 -X main.BUILD_DATE=$(date +%F-%T)'
 
     steps:
       - checkout
-      - run:
-      - run: go get github.com/mitchellh/gox
-      - run: go get github.com/tcnksm/ghr
       - run: ./build.sh
 
 
 workflows:
   version: 2
-  test-and-release-on-tags:
+  test-build-and-release:
     jobs:
-      - run-tests:
+      - tests:
           filters:
             tags:
               only: /.*/
-      - build-and-release:
+      - build:
           requires:
-            - run-tests
+            - tests
           filters:
             tags:
               only: /^v.*/
             branches:
               ignore: /.*/
-
